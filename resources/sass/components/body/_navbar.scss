@@ -1,0 +1,55 @@
+.userinfo {
+  .dropdown-toggle {
+    display: flex;
+    align-items: center;
+
+    .info-left {
+      .roles {
+        background: rgba($dark, .1);
+        border: 1px solid rgba($dark, .25);
+        padding: .25rem .5rem;
+      }
+
+      @include media-breakpoint-down('sm') {
+        display: none;
+      }
+    }
+
+    &:after {
+      display: none;
+    }
+  }
+
+  .dropdown-menu {
+    min-width: 300px;
+
+    .dropdown-header {
+      display: flex;
+      padding: 1rem;
+
+      img {
+        min-height: 50px;
+        min-width: 50px;
+      }
+
+      .user-wrap {
+        margin-left: .75rem;
+
+        > * {
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down('sm') {
+  #admin-navbar .dropdown {
+    position: static;
+
+    .dropdown-menu {
+      width: calc(100% - 2rem);
+      margin: 0 1rem;
+    }
+  }
+}

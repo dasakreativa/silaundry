@@ -1,0 +1,34 @@
+/*!
+ * Garuda Admin Kit
+ * Make your website more easly
+ * Copyright 2016-2021 Dasa Kreativa Studio
+ * Copyright 2021 Programmer Ndeso
+ */
+
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Outfit&family=Inter');
+
+// Bootstrap
+@import 'variables';
+@import '~bootstrap/scss/bootstrap';
+
+// Components
+@import 'components/mixins';
+@import 'components/form';
+@import 'components/body';
+@import 'components/dropdowns';
+@import 'components/buttons';
+
+// Components Sidebar
+@import 'components/sidebar/sidebar.scss';
+@import 'components/body/main.scss';
+@import 'components/footer/main.scss';
+
+// Components Pages
+@import 'pages/login';
+
+// Addons
+@import '~metismenujs/scss/metismenujs.scss';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
+@import '~sweetalert2/dist/sweetalert2.min.css';
+@import '~perfect-scrollbar/css/perfect-scrollbar.css';

@@ -1,0 +1,14 @@
+[data-sidebar="light"] {
+  * {
+    transition: all .2s;
+  }
+
+  @import './sidebar-light/main.scss';
+}
+[data-sidebar="dark"] {
+  * {
+    transition: all .2s;
+  }
+
+  @import './sidebar-dark/main.scss';
+}
