@@ -17,10 +17,11 @@ class CreateOutletsTable extends Migration
       $table->id();
       $table->timestamps();
 
-      $table->string('nama_outlet')->nullable();
-      $table->string('author')->nullable();
+      $table->string('name')->nullable();
+      $table->string('owner')->nullable();
+      $table->enum('status', ['aktif', 'nonaktif'])->nullable()->default('aktif');
       $table->string('alamat_jalan', 100)->nullable();
-      $table->string('alamat_desa', 100)->nullable();
+      $table->string('alamat_kelurahan', 100)->nullable();
       $table->string('alamat_kecamatan', 100)->nullable();
       $table->string('alamat_kabupaten', 100)->nullable();
       $table->string('alamat_provinsi', 100)->nullable();

@@ -1,7 +1,7 @@
 @extends('layouts.login')
 
 @section('content')
-<div class="card card-body shadow border-0">
+<div class="card card-body">
   <div class="text-center text-md-center mb-4 mt-md-0">
     <img src="{{ asset('assets/img/brand/icon-dark-xxxhdpi.png') }}" alt="Logo SiLaundry" class="mx-auto mb-4 d-block" height="75px" />
 

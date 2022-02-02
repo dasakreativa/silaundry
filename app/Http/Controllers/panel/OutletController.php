@@ -3,12 +3,27 @@
 namespace App\Http\Controllers\panel;
 
 use App\Http\Controllers\Controller;
+use App\Models\Outlet;
 use App\Models\User;
+use Yajra\Datatables\Datatables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class OutletController extends Controller
 {
+  /**
+   * Data outlet
+   *
+   * @return json
+   */
+  public function __data(Outlet $outlet)
+  {
+    return Datatables::of($outlet->query())
+    ->addColumn('owner_name', function($outlet) {
+      return $outlet->getUser()->first()->fullname;
+    })->make(true);
+  }
+
   /**
    * Helper for api user data
    *
@@ -17,7 +32,10 @@ class OutletController extends Controller
   public function __userdata(Request $request)
   {
     $search = Str::lower(htmlspecialchars(strip_tags($request->search)));
-    $user   = User::where('fullname', 'LIKE', "%{$search}%")->role(['admin', 'outlet']);
+    $type   = Str::lower(htmlspecialchars(strip_tags($request->type)));
+
+    $user   = User::where($type, 'LIKE', "%{$search}%");
+
     if($user->count() > 0)
     {
       $user = $user->get()->each(function($user) {
@@ -30,7 +48,7 @@ class OutletController extends Controller
         'status'  => 200,
         'error'   => false,
         'success' => true,
-        'messae'  => 'Semua pengguna yang memiliki peran "Admin" dan "Penjaga Outlet" behrasil diambil.'
+        'message' => 'Semua pengguna yang memiliki peran "Admin" dan "Penjaga Outlet" behrasil diambil.'
       ], 200, ['Accept' => 'application/json']);
     } else {
       return response()->json([
@@ -38,7 +56,7 @@ class OutletController extends Controller
         'status'  => 200,
         'error'   => true,
         'success' => false,
-        'messae'  => 'Data pengguna tidak ada.'
+        'message' => 'Data pengguna tidak ada.'
       ], 200, ['Accept' => 'application/json']);
     }
   }
@@ -71,9 +89,31 @@ class OutletController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-  public function store(Request $request)
+  public function store(Request $request, Outlet $outlet)
   {
-    //
+    try {
+      $input = $request->except(['ipinfo', '_token', 'keep']);
+      $data  = $outlet->create($input);
+
+      return response()->json([
+        'debug'     => $data,
+        'status'    => 200,
+        'error'     => false,
+        'success'   => true,
+        'title'     => 'Data berhasil disimpan!',
+        'redirect'  => (bool) $request->keep == true ? null : route('outlet.index'),
+        'message'   => 'Data berhasil disimpan'
+      ], 200, ['Accept' => 'application/json']);
+    } catch (\Exception $e) {
+      return response()->json([
+        'debug'   => $e->getMessage(),
+        'status'  => 400,
+        'error'   => true,
+        'success' => false,
+        'title'   => 'Kesalahan!',
+        'message' => 'Kesalahan server, karena ' . $e->getMessage(),
+      ], 400, ['Accept' => 'application/json']);
+    }
   }
 
   /**

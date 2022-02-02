@@ -21,3 +21,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::any('/outlet/user-list', [\App\Http\Controllers\panel\OutletController::class, '__userdata'])->name('outlet.user-lists');
+Route::any('/outlet/data', [\App\Http\Controllers\panel\OutletController::class, '__data'])->name('outlet.data');
+
+Route::prefix('wilayah')->group(function() {
+  Route::any('provinsi', [\App\Http\Controllers\WilayahController::class, 'provinsi'])->name('api.provinsi');
+  Route::any('kabupaten/{provinsi}', [\App\Http\Controllers\WilayahController::class, 'kabupaten'])->name('api.kabupaten');
+  Route::any('kecamatan/{kabupaten}', [\App\Http\Controllers\WilayahController::class, 'kecamatan'])->name('api.kecamatan');
+  Route::any('kelurahan/{kecamatan}', [\App\Http\Controllers\WilayahController::class, 'kelurahan'])->name('api.kelurahan');
+});

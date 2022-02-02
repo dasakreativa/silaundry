@@ -12,6 +12,9 @@
   <link rel="shortcut icon" href="{{ asset('assets/img/favicon/favicon.ico') }}" type="image/x-icon" />
 
   <!-- Main CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&family=Outfit:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
   <link type="text/css" href="{{ asset('css/app.css') }}" rel="stylesheet" />
 
   <!-- Addons -->
@@ -63,7 +66,7 @@
         @include('layouts.admin.navbar')
         <!-- Navbar -->
 
-        <div id="content-main" class="container">
+        <div id="content-main" class="container-fluid">
 
           @yield('content')
 
@@ -71,7 +74,7 @@
       </div>
 
       <!-- Footer -->
-      <footer class="footer">
+      <footer class="footer mt-5">
         <div class="container">
           <span class="copyright">Hak Cipta 2021 - {{ date('Y') }}, <a href="{{ url('/') }}">Garuda Admin Kit</a>, oleh <a href="https://www.dasakreativa.web.id">Dasa Kreativa Studio</a>.</span>
         </div>

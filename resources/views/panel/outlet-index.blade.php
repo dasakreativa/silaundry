@@ -19,7 +19,7 @@
     </nav>
   </div>
 
-  <div class="card border-0 shadow">
+  <div class="card">
     <div class="card-header border-0 bg-white d-flex justify-content-end">
       <div class="dropdown">
         <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">Aksi</button>
@@ -30,7 +30,7 @@
       </div>
     </div>
     <div class="table-responsive">
-      <table class="table table-striped mb-0">
+      <table class="table table-striped mb-0" id="outlet-list">
         <thead>
           <tr>
             <th>Nama Outlet</th>
@@ -42,15 +42,49 @@
         </thead>
       </table>
     </div>
-    <div class="card-footer border-0 bg-white">Hello world</div>
   </div>
 @endsection
 
 @section('footer')
 <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/id.min.js" integrity="sha512-he8U4ic6kf3kustvJfiERUpojM8barHoz0WYpAUDWQVn61efpm3aVAD8RWL8OloaDDzMZ1gZiubF9OSdYBqHfQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script>
-  $('.table').dataTable();
+  $('#outlet-list').dataTable({
+    ajax: "{{ route('outlet.data') }}",
+    processing: true,
+    serverSide: true,
+    lengthMenu: [30, 50, 100, 200, 500],
+    columns : [
+      { data: 'name' },
+      {
+        data: 'owner',
+        render(a, b, c) {
+          console.log(a, b, c);
+          return `<a href="{{ url("/panel/user") }}/${a}">${c.owner_name}</a>`;
+        }
+      },
+      {
+        data: 'created_at',
+        render(a, b, c) {
+          return moment(a).format('LLLL');
+        }
+      },
+      {
+        data: 'name',
+        render(a, b, c) {
+          return '';
+        }
+      },
+      {
+        data: 'name',
+        render(a, b, c) {
+          return '';
+        }
+      },
+    ],
+  });
 </script>
 @endsection
