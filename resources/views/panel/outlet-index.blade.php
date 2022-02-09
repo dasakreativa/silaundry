@@ -30,7 +30,7 @@
       </div>
     </div>
     <div class="table-responsive">
-      <table class="table table-striped mb-0" id="outlet-list">
+      <table class="w-100 table table-striped mb-0" id="outlet-list">
         <thead>
           <tr>
             <th>Nama Outlet</th>
@@ -62,8 +62,27 @@
       {
         data: 'owner',
         render(a, b, c) {
-          console.log(a, b, c);
-          return `<a href="{{ url("/panel/user") }}/${a}">${c.owner_name}</a>`;
+          return `<div class="modal" tabindex="-1">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Modal title</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p>Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <a href="{{ url("/panel/user") }}/${a}">${c.owner_name}</a>`;
         }
       },
       {
@@ -75,11 +94,11 @@
       {
         data: 'name',
         render(a, b, c) {
-          return '';
+          return `${c.alamat_jalan !== '' ? c.alamat_jalan + ', ' : '' }${c.alamat_kelurahan}, ${c.alamat_kecamatan}, ${c.alamat_kabupaten}, ${c.alamat_provinsi}`;
         }
       },
       {
-        data: 'name',
+        data: 'id',
         render(a, b, c) {
           return '';
         }

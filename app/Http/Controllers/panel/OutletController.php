@@ -21,6 +21,18 @@ class OutletController extends Controller
     return Datatables::of($outlet->query())
     ->addColumn('owner_name', function($outlet) {
       return $outlet->getUser()->first()->fullname;
+    })
+    ->editColumn('alamat_kelurahan', function($outlet) {
+      return $outlet->getVillage()->first()->name;
+    })
+    ->editColumn('alamat_kecamatan', function($outlet) {
+      return $outlet->getDistrict()->first()->name;
+    })
+    ->editColumn('alamat_kabupaten', function($outlet) {
+      return $outlet->getRegency()->first()->name;
+    })
+    ->editColumn('alamat_provinsi', function($outlet) {
+      return $outlet->getProvinces()->first()->name;
     })->make(true);
   }
 
